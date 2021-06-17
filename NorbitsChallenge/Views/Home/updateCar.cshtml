@@ -1,0 +1,58 @@
+﻿@model NorbitsChallenge.Models.CarUpdateModel
+
+@{
+    ViewData["Title"] = "updateCar";
+}
+
+<h2>updateCar</h2>
+
+<h4>CarUpdateModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="updateCar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="OldLicensePlate" class="control-label"></label>
+                <input asp-for="OldLicensePlate" class="form-control" readonly/>
+                <span asp-validation-for="OldLicensePlate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarLicensePlate" class="control-label"></label>
+                <input asp-for="CarLicensePlate" class="form-control" />
+                <span asp-validation-for="CarLicensePlate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarDescription" class="control-label"></label>
+                <input asp-for="CarDescription" class="form-control" />
+                <span asp-validation-for="CarDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarModel" class="control-label"></label>
+                <input asp-for="CarModel" class="form-control" />
+                <span asp-validation-for="CarModel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarBrand" class="control-label"></label>
+                <input asp-for="CarBrand" class="form-control" />
+                <span asp-validation-for="CarBrand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TireCount" class="control-label"></label>
+                <input asp-for="TireCount" class="form-control" />
+                <span asp-validation-for="TireCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

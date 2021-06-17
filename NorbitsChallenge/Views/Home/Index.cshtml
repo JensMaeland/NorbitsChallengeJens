@@ -1,0 +1,82 @@
+﻿@model HomeModel
+
+@section Scripts
+{
+    <link href="./css/site.css" rel="stylesheet" />
+}
+
+@{
+
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>
+    Biler for @Model.CompanyName
+</h2>
+
+<form asp-action="Index" data-ajax="true" data-ajax-method="POST" data-ajax-success="onSuccess">
+    <input type="hidden" name="companyId" value="@Model.CompanyId" />
+    <input type="text" name="licensePlate" />
+    <input type="submit" value="Søk" />
+</form>
+
+<div id="carInfo" class="hidden">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">License Plate</th>
+                <th scope="col">Model</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Description</th>
+                <th scope="col">Tire Count</th>
+            </tr>
+        </thead>
+        <tr>
+            <th id="licensePlate" scope="row"></th>
+            <td id="model"></td>
+            <td id="brand"></td>
+            <td id="description"></td>
+            <td id="tireCount"></td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">License Plate</th>
+                <th scope="col">Model</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Description</th>
+                <th scope="col">Tire Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Car car in Model.AllCars)
+            {
+            <tr>
+                <th scope="row">@car.LicensePlate</th>
+                <td>@car.Model</td>
+                <td>@car.Brand</td>
+                <td>@car.Description</td>
+                <td>@car.TireCount</td>
+                <td>
+                    @Html.ActionLink("Update", "UpdateCar", 
+                   new { OldLicensePlate = car.LicensePlate, 
+                   CarModel = car.Model,
+                   CarBrand = car.Brand,
+                   CarDescription= car.Description,
+                   TireCount = car.TireCount
+                   })
+
+                    @Html.ActionLink("Delete", "DeleteCar", new { licensePlate = car.LicensePlate, companyId = Model.CompanyId })
+                </td>
+
+            </tr>
+                    }
+    </table>
+</div>
+
+<h4>Gå til <a asp-action="Index" asp-controller="Settings" asp-route-companyId="@Model.CompanyId">Innstillinger</a></h4>
+
