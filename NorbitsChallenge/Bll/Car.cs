@@ -17,7 +17,7 @@ namespace NorbitsChallenge.Bll
         override public string ToString()
         {
             return String.Format("License Plate : {0}, Description : {1} Model : {2}, Brand : {3}, Tire Count : {4}",
-                                  LicensePlate,       Description,      Model,       Brand,       TireCount);
+                                  LicensePlate,        Description,      Model,       Brand,       TireCount);
         }
     }
 }

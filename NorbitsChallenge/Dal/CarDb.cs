@@ -28,15 +28,6 @@ namespace NorbitsChallenge.Dal
                 connection.Open();
                 using (var command = new SqlCommand { Connection = connection, CommandType = CommandType.Text })
                 {
-                    /*
-                    if (oldLicensePlate != null || oldLicensePlate != "")
-                    {
-                        command.CommandText = $"update dbo.Car set LicensePlate = '{licensePlate}', Description = '{description}', Model = '{model}', " +
-                        $"Brand = '{brand}', TireCount = {tireCount} where LicensePlate = '{oldLicensePlate}'";
-
-                        return command.ExecuteNonQuery();
-                    }
-                    else*/
                     {
                         command.CommandText = $"update dbo.Car set LicensePlate = '{licensePlate}', Description = '{description}', Model = '{model}', " +
                         $"Brand = '{brand}', TireCount = {tireCount}, CompanyId = {companyId} where LicensePlate like '{OldLicensePlate}'";
@@ -145,7 +136,6 @@ namespace NorbitsChallenge.Dal
                     }
                 }
             }
-            //System.Diagnostics.Debug.WriteLine(string.Join(", ", allCars));
 
             return allCars;
         }

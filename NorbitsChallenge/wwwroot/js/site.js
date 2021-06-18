@@ -12,10 +12,12 @@ function onSuccess(data) {
 
     if (isEmptyOrNull(data.licensePlate)) {
         $('#carInfo').addClass('hidden');
+        $('#carSearchBox').removeClass('hidden');
         return;
     }
-
+    $('#carSearchBox').addClass('hidden');
     var licensePlate = data.licensePlate;
+
     $('#licensePlate').text(licensePlate);
     $('#carInfo').removeClass('hidden');
 
