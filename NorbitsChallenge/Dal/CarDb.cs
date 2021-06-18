@@ -86,7 +86,7 @@ namespace NorbitsChallenge.Dal
                 connection.Open();
                 using (var command = new SqlCommand { Connection = connection, CommandType = CommandType.Text })
                 {
-                    command.CommandText = $"select * from car where LicensePlate = '{licensePlate}' and companyId = {companyId}";
+                    command.CommandText = $"select * from car where LicensePlate like '%{licensePlate}%' and companyId = {companyId}";
 
                     using (var reader = command.ExecuteReader())
                     {

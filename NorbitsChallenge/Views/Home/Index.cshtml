@@ -14,13 +14,16 @@
     Biler for @Model.CompanyName
 </h2>
 
-<form asp-action="Index" data-ajax="true" data-ajax-method="POST" data-ajax-success="onSuccess">
-    <input type="hidden" name="companyId" value="@Model.CompanyId" />
-    <input type="text" name="licensePlate" />
-    <input type="submit" value="Søk" />
-</form>
+<div id="outerSearchForm">
+    <form asp-action="Index" class="innerSearchForm" data-ajax="true" data-ajax-method="POST" data-ajax-success="onSuccess">
+        <input class="innerSearchForm" type="hidden" name="companyId" value="@Model.CompanyId" />
+        <input class="innerSearchForm" type="text" name="licensePlate" />
+        <input class="innerSearchForm" type="submit" value="Søk" />
+    </form>
+    <button class="btn btn-success innerSearchForm addCarbtn">@Html.ActionLink("Add Car", "AddCar", null)</button>
 
-<div id="carSearchBox" class="hidden">The searched car does not exist in the database</div>
+    <div id="carSearchBox" class="carSearchErrorMessage hidden">The searched car does not exist in the database</div>
+</div>
 
 <div id="carInfo" class="hidden">
     <table class="table">
@@ -39,10 +42,10 @@
             <td id="brand"></td>
             <td id="description"></td>
             <td id="tireCount"></td>
+
         </tr>
     </table>
 </div>
-
 
 <div>
     <table class="table">
@@ -65,14 +68,17 @@
                 <td>@car.Description</td>
                 <td>@car.TireCount</td>
                 <td>
-                    @Html.ActionLink("Update", "UpdateCar", 
-                   new { OldLicensePlate = car.LicensePlate, 
+                    @Html.ActionLink("Update", "UpdateCar",
+                   new
+                        {
+                            OldLicensePlate = car.LicensePlate,
                    CarModel = car.Model,
                    CarBrand = car.Brand,
-                   CarDescription= car.Description,
+                   CarDescription = car.Description,
                    TireCount = car.TireCount
                    })
-
+                </td>
+                <td>
                     @Html.ActionLink("Delete", "DeleteCar", new { licensePlate = car.LicensePlate, companyId = Model.CompanyId })
                 </td>
 

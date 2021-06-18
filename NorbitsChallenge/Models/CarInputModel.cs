@@ -25,7 +25,8 @@ namespace NorbitsChallenge.Models
         public string CarBrand { get; set; }
 
         [Display(Name = "Tire count")]
-        [Required(ErrorMessage = "Car license plate is required.")]
+        [Range(0, 16)]
+        [Required(ErrorMessage = "Tire count must be between 0 and 16.")]
         public int TireCount { get; set; }
     }
 }

@@ -1,11 +1,9 @@
 ﻿@model NorbitsChallenge.Models.CarInputModel
-
 @{
     ViewData["Title"] = "AddCar";
 }
-
 <h2>Add Car</h2>
-
+<h3>@ViewData["ErrorMessage"]</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -38,11 +36,11 @@
             </div>
 
 
-                <div class="form-group" style="display: inline;padding-right:5px">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+            <div class="form-group" style="display: inline;padding-right:5px">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
 
-</form>
+        </form>
     </div>
 </div>
 

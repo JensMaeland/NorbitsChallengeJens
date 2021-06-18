@@ -55,11 +55,9 @@ namespace NorbitsChallenge.Controllers
             return Json(model.searchedCar);
         }
 
-        public IActionResult updateCar(string OldLicensePlate, string CarModel, string CarBrand, string CarDescription, int TireCount)
+        public IActionResult UpdateCar(string OldLicensePlate, string CarModel, string CarBrand, string CarDescription, int TireCount)
         {
-            var companyModel = GetCompanyModel();
-
-            CarUpdateModel car = new CarUpdateModel();
+            CarUpdateModel car = new ();
             car.CarLicensePlate = OldLicensePlate;
             car.CarModel = CarModel;
             car.CarBrand = CarBrand;
@@ -70,18 +68,24 @@ namespace NorbitsChallenge.Controllers
         }
 
         [HttpPost]
-        public IActionResult updateCar(CarUpdateModel car)
+        public IActionResult UpdateCar(CarUpdateModel car)
         {
             var carDb = new CarDb(_config);
             var companyModel = GetCompanyModel();
-            int x = carDb.UpdateCar(car.CarLicensePlate, car.OldLicensePlate, car.CarModel, car.CarBrand, car.CarDescription, car.TireCount, companyModel.CompanyId);
+            var existingCar = carDb.GetCarByLicensePlate(companyModel.CompanyId, car.CarLicensePlate);
+            if (!String.IsNullOrEmpty(existingCar.LicensePlate))
+            {
+                ViewData["ErrorMessage"] = "Car already exists in database";
+                return View();
+            }
+            carDb.UpdateCar(car.CarLicensePlate, car.OldLicensePlate, car.CarModel, car.CarBrand, car.CarDescription, car.TireCount, companyModel.CompanyId);
             return RedirectToAction("Index");
         }
 
         public IActionResult DeleteCar(string licensePlate, int companyId)
         {
             var carDb = new CarDb(_config);
-            int x = carDb.DeleteCar(licensePlate, companyId);
+            carDb.DeleteCar(licensePlate, companyId);
             return RedirectToAction("Index");
         }
 
@@ -109,11 +113,18 @@ namespace NorbitsChallenge.Controllers
         [HttpPost]
         public IActionResult AddCar(CarInputModel model)
         {
+            var carDb = new CarDb(_config);
             var companyModel = GetCompanyModel();
+            var existingCar = carDb.GetCarByLicensePlate(companyModel.CompanyId, model.CarLicensePlate);
+            if (!String.IsNullOrEmpty(existingCar.LicensePlate))
+            {
+                ViewData["ErrorMessage"] = "Car already exists in database";
+                return View();
+            }
+
             if (ModelState.IsValid)
             {
-                var carDb = new CarDb(_config);
-                int carCreated = carDb.CreateCar(companyModel.CompanyId,
+                carDb.CreateCar(companyModel.CompanyId,
                     model.CarLicensePlate,
                     model.CarModel,
                     model.CarBrand,

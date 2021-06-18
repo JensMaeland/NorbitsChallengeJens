@@ -31,6 +31,7 @@ namespace NorbitsChallenge.Models
 
         [Display(Name = "Tire count")]
         [Range(0, 16)]
+        [Required(ErrorMessage = "Tire count must be between 0 and 16.")]
         public int TireCount { get; set; }
     }
 }
